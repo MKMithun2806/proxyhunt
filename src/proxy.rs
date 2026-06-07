@@ -49,6 +49,7 @@ pub struct Proxy {
 }
 
 impl Proxy {
+    #[allow(dead_code)]
     pub fn new(proto: ProxyProto, host: &str, port: u16) -> Self {
         Self {
             proto,
@@ -111,5 +112,31 @@ impl FromStr for Proxy {
 impl fmt::Display for Proxy {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         write!(f, "{}", self.full_url())
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_proxy_parsing() {
+        let p: Proxy = "1.2.3.4:8080".parse().unwrap();
+        assert_eq!(p.host, "1.2.3.4");
+        assert_eq!(p.port, 8080);
+        assert_eq!(p.proto, ProxyProto::Http);
+
+        let p: Proxy = "socks5://user:pass@5.6.7.8:1080".parse().unwrap();
+        assert_eq!(p.proto, ProxyProto::Socks5);
+        assert_eq!(p.user, Some("user".to_string()));
+        assert_eq!(p.pass, Some("pass".to_string()));
+    }
+
+    #[test]
+    fn test_proxy_new() {
+        let p = Proxy::new(ProxyProto::Socks4, "localhost", 9050);
+        assert_eq!(p.proto, ProxyProto::Socks4);
+        assert_eq!(p.host, "localhost");
+        assert_eq!(p.port, 9050);
     }
 }

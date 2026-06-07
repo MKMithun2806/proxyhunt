@@ -39,3 +39,14 @@ impl Enricher {
         })
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_enricher_empty() {
+        let enricher = Enricher::new(None::<&str>);
+        assert!(enricher.enrich("1.1.1.1").is_none());
+    }
+}

@@ -3,6 +3,7 @@ use anyhow::Result;
 use reqwest::{Client, Proxy as ReqwestProxy};
 use crate::proxy::{Proxy, ProxyProto};
 use crate::cli::CheckArgs;
+use crate::enrich::{Enricher, Enrichment};
 use futures::StreamExt;
 use indicatif::{ProgressBar, ProgressStyle};
 use serde::Serialize;
@@ -12,15 +13,18 @@ pub struct CheckedProxy {
     pub proxy: Proxy,
     pub latency: Duration,
     pub status: bool,
+    pub enrichment: Option<Enrichment>,
 }
 
 pub struct Checker {
     args: CheckArgs,
+    enricher: Enricher,
 }
 
 impl Checker {
     pub fn new(args: CheckArgs) -> Self {
-        Self { args }
+        let enricher = Enricher::new(args.geoip_db.as_ref());
+        Self { args, enricher }
     }
 
     pub async fn check_all(&self, proxies: Vec<Proxy>) -> Vec<CheckedProxy> {
@@ -56,10 +60,17 @@ impl Checker {
         let status = self.test_connection(&proxy, args).await.is_ok();
         let latency = start.elapsed();
 
+        let enrichment = if !args.no_enrich {
+            self.enricher.enrich(&proxy.host)
+        } else {
+            None
+        };
+
         CheckedProxy {
             proxy,
             latency,
             status,
+            enrichment,
         }
     }
 

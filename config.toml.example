@@ -24,5 +24,8 @@ connect_timeout = 5
 # URL to check proxies against
 check_url = "https://ipv4.icanhazip.com"
 
+# Path to MaxMind GeoIP2 database
+# geoip_db = "GeoLite2-City.mmdb"
+
 # Enrichment
 no_enrich = false

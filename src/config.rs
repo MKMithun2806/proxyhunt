@@ -22,6 +22,7 @@ pub struct CheckConfig {
     pub timeout: Option<u64>,
     pub connect_timeout: Option<u64>,
     pub check_url: Option<String>,
+    pub geoip_db: Option<String>,
     pub no_enrich: Option<bool>,
 }
 
@@ -44,6 +45,7 @@ impl Config {
         if let Some(v) = self.check.timeout { if args.timeout == 10 { args.timeout = v; } }
         if let Some(v) = self.check.connect_timeout { if args.connect_timeout == 5 { args.connect_timeout = v; } }
         if let Some(ref v) = self.check.check_url { if args.check_url == "https://ipv4.icanhazip.com" { args.check_url = v.clone(); } }
+        if let Some(ref v) = self.check.geoip_db { if args.geoip_db.is_none() { args.geoip_db = Some(v.clone()); } }
         if let Some(v) = self.check.no_enrich { if !args.no_enrich { args.no_enrich = v; } }
     }
 }
