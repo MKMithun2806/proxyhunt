@@ -1,0 +1,28 @@
+[check]
+# Enable protocols
+http = true
+socks4 = true
+socks5 = true
+
+# Sources to scrape from (URLs or local files)
+sources = [
+    "https://raw.githubusercontent.com/monosans/proxy-list/main/proxies/http.txt",
+    "https://raw.githubusercontent.com/monosans/proxy-list/main/proxies/socks4.txt",
+    "https://raw.githubusercontent.com/monosans/proxy-list/main/proxies/socks5.txt"
+]
+
+# Output settings
+output = "proxies.txt"
+json = "proxies.json"
+
+# Limits and Performance
+limit = 100
+concurrency = 512
+timeout = 10
+connect_timeout = 5
+
+# URL to check proxies against
+check_url = "https://ipv4.icanhazip.com"
+
+# Enrichment
+no_enrich = false
