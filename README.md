@@ -1,9 +1,8 @@
 # proxyhunt
 
-[![Crates.io](https://img.shields.io/crates/v/proxyhunt.svg)](https://crates.io/crates/proxyhunt)
-[![Documentation](https://docs.rs/proxyhunt/badge.svg)](https://docs.rs/proxyhunt)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Build Status](https://github.com/mithun/proxyhunt/workflows/CI/badge.svg)](https://github.com/mithun/proxyhunt/actions)
+[![Crates.io](https://img.shields.io/crates/v/proxyhunt)](https://crates.io/crates/proxyhunt)
+[![License: MIT](https://img.shields.io/github/license/MKMithun2806/proxyhunt)](https://github.com/MKMithun2806/proxyhunt/blob/main/LICENSE)
+[![Build Status](https://github.com/MKMithun2806/proxyhunt/actions/workflows/rust.yml/badge.svg)](https://github.com/MKMithun2806/proxyhunt/actions)
 
 A high-performance, asynchronous proxy scraper and checker written in Rust.
 
